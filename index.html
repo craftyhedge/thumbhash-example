@@ -96,6 +96,25 @@
       color: var(--text);
     }
 
+    .show-images-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .show-images-toggle input {
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+      accent-color: #9dc5ff;
+      cursor: pointer;
+    }
+
     .gallery {
       width: 100%;
       max-width: 1920px;
@@ -132,6 +151,16 @@
     .thumbhash-bg:hover .thumbhash-fade,
     .thumbhash-bg:focus-within .thumbhash-fade {
       opacity: 1;
+    }
+
+    body.show-images-on .thumbhash-fade {
+      opacity: 1;
+    }
+
+    body.show-images-on .thumbhash-fade:hover,
+    body.show-images-on .thumbhash-bg:hover .thumbhash-fade,
+    body.show-images-on .thumbhash-bg:focus-within .thumbhash-fade {
+      opacity: 0;
     }
 
     .thumbhash-image {
@@ -231,6 +260,10 @@
   <a class="skip-link" href="#gallery">Skip to gallery</a>
   <header>
     <h1 id="page-title">ThumbHash</h1>
+    <label class="show-images-toggle" for="show-images-toggle">
+      <input id="show-images-toggle" type="checkbox">
+      <span>show images</span>
+    </label>
   </header>
 
   <main id="gallery" class="gallery" aria-labelledby="page-title">
@@ -389,5 +422,19 @@
       <p>Photo by <a href="https://unsplash.com/@jordansteranka?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jordan Steranka</a> on <a href="https://unsplash.com/photos/silhouette-of-man-standing-on-seashore-NcF6MVPW644?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var showImagesToggle = document.getElementById("show-images-toggle");
+      if (!showImagesToggle) return;
+
+      function syncShowImagesState() {
+        document.body.classList.toggle("show-images-on", showImagesToggle.checked);
+      }
+
+      showImagesToggle.addEventListener("change", syncShowImagesState);
+      syncShowImagesState();
+    })();
+  </script>
 </body>
 </html>
